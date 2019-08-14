@@ -1,0 +1,76 @@
+package me.perol.blog.controller;
+
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import me.perol.blog.entity.Article;
+import me.perol.blog.entity.User;
+import me.perol.blog.mapper.ArticleMapper;
+import me.perol.blog.mapper.UserMapper;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.List;
+
+/**
+ * <p>
+ * 前端控制器
+ * </p>
+ *
+ * @author perol
+ * @since 2019-08-07
+ */
+@RestController
+@RequestMapping("/api/article")
+public class ArticleController extends BaseController {
+    @Resource
+    ArticleMapper articleMapper;
+    @Resource
+    UserMapper userMapper;
+
+    @GetMapping
+    public List<Article> getArticle(@RequestParam(value = "current", required = false) Long current, @RequestParam(value = "size", required = false) Long size) {
+        if (current == null || size == null) {
+            return articleMapper.selectList(null);
+        } else {
+            Page<Article> page = new Page<>(current, size);
+            return articleMapper.selectPage(page, null).getRecords();
+        }
+    }
+
+    @GetMapping("/{id}")
+    public Article getArticleById(@PathVariable("id") Long id) {
+        return articleMapper.selectById(id);
+    }
+
+    @PostMapping()
+    public void postArticle(Principal principal,@RequestBody Article article) {
+        User user = userMapper.selectByName(principal.getName());
+        article.setCreateTime(LocalDateTime.now());
+        article.setUserId(user.getId());
+        articleMapper.insert(article);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteArticle(Principal principal, @PathVariable("id") Long id) {
+        confirm(principal, id);
+        articleMapper.deleteById(id);
+    }
+
+    private void confirm(Principal principal, Long id) {
+        User user = userMapper.selectByName(principal.getName());
+        if (!id.equals(user.getId())) {
+            throw new RuntimeException("");
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public void updateArticle(Principal principal, @PathVariable("id") Long id, @RequestBody Article article) {
+        confirm(principal, id);
+        article.setId(id);
+        article.setCreateTime(null);
+        article.setUpdateTime(LocalDateTime.now());
+        articleMapper.updateById(article);
+    }
+}
