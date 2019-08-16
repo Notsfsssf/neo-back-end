@@ -19,6 +19,8 @@ public class ArticleControllerTest {
 
     @Test
     public void getArticleById() {
+      Article article=  articleMapper.selectById(5);
+      System.out.println(article);
     }
 
     @Test

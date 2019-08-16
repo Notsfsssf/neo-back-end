@@ -6,6 +6,8 @@ import me.perol.blog.entity.Article;
 import me.perol.blog.entity.User;
 import me.perol.blog.mapper.ArticleMapper;
 import me.perol.blog.mapper.UserMapper;
+import org.apache.ibatis.javassist.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,12 +42,14 @@ public class ArticleController extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public Article getArticleById(@PathVariable("id") Long id) {
-        return articleMapper.selectById(id);
+    public Article getArticleById(@PathVariable("id") Long id)  {
+       Article article= articleMapper.selectById(id);
+       return  article;
     }
 
-    @PostMapping()
-    public void postArticle(Principal principal,@RequestBody Article article) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void postArticle(Principal principal, @RequestBody Article article) {
         User user = userMapper.selectByName(principal.getName());
         article.setCreateTime(LocalDateTime.now());
         article.setUserId(user.getId());
@@ -53,24 +57,28 @@ public class ArticleController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteArticle(Principal principal, @PathVariable("id") Long id) {
-        confirm(principal, id);
-        articleMapper.deleteById(id);
-    }
-
-    private void confirm(Principal principal, Long id) {
-        User user = userMapper.selectByName(principal.getName());
-        if (!id.equals(user.getId())) {
+        boolean ok = articleMapper.selectById(id).getUserId().equals(userMapper.selectByName(principal.getName()).getId());
+        if (ok) {
+            articleMapper.deleteById(id);
+        } else {
             throw new RuntimeException("");
         }
     }
 
+
     @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void updateArticle(Principal principal, @PathVariable("id") Long id, @RequestBody Article article) {
-        confirm(principal, id);
-        article.setId(id);
-        article.setCreateTime(null);
-        article.setUpdateTime(LocalDateTime.now());
-        articleMapper.updateById(article);
+        boolean ok = article.getUserId().equals(userMapper.selectByName(principal.getName()).getId());
+        if (ok) {
+            article.setId(id);
+            article.setCreateTime(null);
+            article.setUpdateTime(LocalDateTime.now());
+            articleMapper.updateById(article);
+        } else {
+            throw new RuntimeException("");
+        }
     }
 }
