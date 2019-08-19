@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=UTC
     password: 1122
-    username: root
+    username: spring
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis:
   mapper-locations: classpath*:/mapper/blog/*.xml
