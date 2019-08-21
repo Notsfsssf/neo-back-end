@@ -4,10 +4,12 @@ package me.perol.blog.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import me.perol.blog.entity.Article;
 import me.perol.blog.entity.Comment;
+import me.perol.blog.form.CommentForm;
 import me.perol.blog.mapper.CommentMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -42,7 +44,12 @@ public class CommentController extends BaseController {
         return  comments;
     }
     @PostMapping
-    public void postComment(@RequestBody Comment comment){
+    public void postComment(@RequestBody CommentForm commentForm){
+        Comment comment = new Comment();
+        comment.setCreateTime(LocalDateTime.now());
+        comment.setEmail(commentForm.getEmail());
+        comment.setContent(commentForm.getContent());
+        comment.setName(commentForm.getName());
         commentMapper.insert(comment);
     }
 
