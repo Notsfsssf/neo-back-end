@@ -32,5 +32,5 @@ public class Comment extends BaseEntity {
 
     private LocalDateTime createTime;
 
-
+private Long articleId;
 }

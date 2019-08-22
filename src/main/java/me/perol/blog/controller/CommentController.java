@@ -9,6 +9,7 @@ import me.perol.blog.mapper.CommentMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,12 +24,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController extends BaseController {
+
     @Resource
     CommentMapper commentMapper;
     @GetMapping("/{id}")
     public List<Comment> getCommentByArticleId(@PathVariable("id") Long id)  {
+        System.out.println(id);
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id",id);
+        queryWrapper.eq("article_id",id);
         List<Comment> comments= commentMapper.selectList(queryWrapper);
         for (Comment comment:comments
              ) {
@@ -44,12 +47,13 @@ public class CommentController extends BaseController {
         return  comments;
     }
     @PostMapping
-    public void postComment(@RequestBody CommentForm commentForm){
+    public void postComment(@RequestBody @Valid CommentForm commentForm){
         Comment comment = new Comment();
         comment.setCreateTime(LocalDateTime.now());
         comment.setEmail(commentForm.getEmail());
         comment.setContent(commentForm.getContent());
         comment.setName(commentForm.getName());
+        comment.setArticleId(commentForm.getArticleId());
         commentMapper.insert(comment);
     }
 
