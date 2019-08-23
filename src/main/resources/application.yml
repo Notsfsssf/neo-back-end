@@ -7,7 +7,4 @@ spring:
 mybatis:
   mapper-locations: classpath*:/mapper/blog/*.xml
   type-aliases-package: me.perol.blog.entity
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
 

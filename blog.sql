@@ -18,3 +18,13 @@ create table article
     update_time datetime     null,
     create_time datetime     null
 );
+create table comment
+(
+    id          int auto_increment
+        primary key,
+    content     text         null,
+    name        varchar(255) null,
+    email       varchar(100) null,
+    create_time datetime     null,
+    article_id  int          not null
+);
