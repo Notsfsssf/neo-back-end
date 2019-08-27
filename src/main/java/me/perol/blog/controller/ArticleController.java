@@ -1,6 +1,7 @@
 package me.perol.blog.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import me.perol.blog.entity.Article;
 import me.perol.blog.entity.User;
@@ -33,11 +34,13 @@ public class ArticleController extends BaseController {
 
     @GetMapping
     public List<Article> getArticle(@RequestParam(value = "current", required = false) Long current, @RequestParam(value = "size", required = false) Long size) {
+        QueryWrapper<Article> queryWrapper = new QueryWrapper<Article>();
+        queryWrapper.orderByDesc("id");
         if (current == null || size == null) {
-            return articleMapper.selectList(null);
+            return articleMapper.selectList(queryWrapper);
         } else {
             Page<Article> page = new Page<>(current, size);
-            return articleMapper.selectPage(page, null).getRecords();
+            return articleMapper.selectPage(page, queryWrapper).getRecords();
         }
     }
 

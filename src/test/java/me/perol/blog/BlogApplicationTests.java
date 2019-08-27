@@ -27,7 +27,10 @@ public class BlogApplicationTests {
         userMapper.insert(user);
 
     }
-
+@Test
+public void GbkUt(){
+        System.out.println("中文");
+}
     @Test
     public void searchUser() {
         Map<String, Object> map = new HashMap<>();
