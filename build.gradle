@@ -25,18 +25,18 @@ repositories {
 }
 
 dependencies {
-
     compile 'io.jsonwebtoken:jjwt-api:0.10.7'
     runtime 'io.jsonwebtoken:jjwt-impl:0.10.7'
     runtime 'io.jsonwebtoken:jjwt-jackson:0.10.7'
     compile 'com.baomidou:mybatis-plus-boot-starter:3.1.2'
     compile 'org.freemarker:freemarker:2.3.28'
-    compile'mysql:mysql-connector-java:8.0.17'
+    compile 'mysql:mysql-connector-java:8.0.17'
     compile 'com.baomidou:mybatis-plus-generator:3.1.2'
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-test"
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "org.springframework.boot:spring-boot-starter-aop"
+    compile "org.springframework.boot:spring-boot-starter-websocket"
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

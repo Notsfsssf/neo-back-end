@@ -4,13 +4,12 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
-/**
- * @Author: Perol
- * @Description:
- * @Date: Create in 15:39 2019/8/12
- */
 @Data
-public class UserForm {
+public class InsertUserForm {
+    @NotBlank
     private String name;
+    @NotBlank
     private String password;
+    @NotBlank
+    private String email;
 }

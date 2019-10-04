@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author perol
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 public class Comment extends BaseEntity {
 
-    @TableId(type= IdType.AUTO)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     private String content;
@@ -32,5 +32,5 @@ public class Comment extends BaseEntity {
 
     private LocalDateTime createTime;
 
-private Long articleId;
+    private Long articleId;
 }

@@ -6,6 +6,7 @@ import me.perol.blog.entity.Article;
 import me.perol.blog.entity.Comment;
 import me.perol.blog.form.CommentForm;
 import me.perol.blog.mapper.CommentMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -49,11 +50,8 @@ public class CommentController extends BaseController {
     @PostMapping
     public void postComment(@RequestBody @Valid CommentForm commentForm){
         Comment comment = new Comment();
+        BeanUtils.copyProperties(comment, commentForm);
         comment.setCreateTime(LocalDateTime.now());
-        comment.setEmail(commentForm.getEmail());
-        comment.setContent(commentForm.getContent());
-        comment.setName(commentForm.getName());
-        comment.setArticleId(commentForm.getArticleId());
         commentMapper.insert(comment);
     }
 

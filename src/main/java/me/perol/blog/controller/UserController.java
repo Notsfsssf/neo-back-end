@@ -2,7 +2,10 @@ package me.perol.blog.controller;
 
 
 import me.perol.blog.entity.User;
+import me.perol.blog.form.InsertUserForm;
+import me.perol.blog.form.UserForm;
 import me.perol.blog.mapper.UserMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,9 +38,11 @@ public class UserController extends BaseController {
     }
 
     @PostMapping()
-    public void InsertUser(@RequestBody @Valid User user) {
+    public void InsertUser(@RequestBody @Valid InsertUserForm user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userMapper.insert(user);
+        User user1 = new User();
+        BeanUtils.copyProperties(user1, user);
+        userMapper.insert(user1);
     }
 
     private void confirm(Principal principal, Long id) {
