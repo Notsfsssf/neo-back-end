@@ -4,6 +4,10 @@ spring:
     password: 1122
     username: spring
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:/ehcache.xml
 mybatis:
   mapper-locations: classpath*:/mapper/blog/*.xml
   type-aliases-package: me.perol.blog.entity

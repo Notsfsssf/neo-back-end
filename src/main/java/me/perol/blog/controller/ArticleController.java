@@ -7,7 +7,6 @@ import me.perol.blog.entity.Article;
 import me.perol.blog.entity.User;
 import me.perol.blog.mapper.ArticleMapper;
 import me.perol.blog.mapper.UserMapper;
-import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,8 +45,7 @@ public class ArticleController extends BaseController {
 
     @GetMapping("/{id}")
     public Article getArticleById(@PathVariable("id") Long id)  {
-       Article article= articleMapper.selectById(id);
-       return  article;
+        return articleMapper.selectById(id);
     }
 
     @PostMapping
