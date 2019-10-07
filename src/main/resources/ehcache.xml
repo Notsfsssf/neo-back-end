@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNameSpaceSchemaLocation="ehcache.xsd"
-         updateCheck="true"
-         monitoring="autodetect"
-         dynamicConfig="true">
-    <diskStore path="java.io.tmpdir"/>
-    <cache name="user" maxElementsInMemory="1000"/>
-</ehcache>

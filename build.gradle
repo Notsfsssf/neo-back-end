@@ -25,8 +25,8 @@ repositories {
 }
 
 dependencies {
-    compile 'net.sf.ehcache:ehcache:2.10.6'
     compile 'org.springframework.boot:spring-boot-starter-cache'
+    compile 'org.springframework.boot:spring-boot-starter-data-redis'
     compile 'io.jsonwebtoken:jjwt-api:0.10.7'
     runtime 'io.jsonwebtoken:jjwt-impl:0.10.7'
     runtime 'io.jsonwebtoken:jjwt-jackson:0.10.7'

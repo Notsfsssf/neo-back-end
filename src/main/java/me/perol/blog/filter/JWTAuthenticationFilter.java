@@ -23,7 +23,6 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
-
     }
 
     @Override
@@ -43,7 +42,9 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
 
     }
-    public   static final Key SIGNINKEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
+    public static final Key SIGNINKEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) throws SignatureException {
         String token = request.getHeader("Authorization");
         if (token != null) {

@@ -1,7 +1,6 @@
 package me.perol.blog.config;
 
 import me.perol.blog.filter.JWTAuthenticationFilter;
-import me.perol.blog.filter.JWTLoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,8 +25,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        JWTLoginFilter filter = new JWTLoginFilter(authenticationManager());
-        filter.setFilterProcessesUrl("/api/login");
         http.cors()
                 .and().csrf().disable().authorizeRequests()
                 .antMatchers("/").permitAll()
