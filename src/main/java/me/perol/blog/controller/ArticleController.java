@@ -3,6 +3,7 @@ package me.perol.blog.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
 import me.perol.blog.entity.Article;
 import me.perol.blog.entity.User;
 import me.perol.blog.mapper.ArticleMapper;
@@ -24,6 +25,7 @@ import java.util.List;
  * @since 2019-08-07
  */
 @RestController
+@Slf4j
 @RequestMapping("/api/article")
 public class ArticleController extends BaseController {
     @Resource

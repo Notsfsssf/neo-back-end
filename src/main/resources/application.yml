@@ -6,10 +6,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   cache:
     type: redis
-    redis:
-      time-to-live: 600000
-    cache-names: test-cache
 mybatis:
   mapper-locations: classpath*:/mapper/blog/*.xml
   type-aliases-package: me.perol.blog.entity
-
+logging:
+  level:
+    root:
+      info
