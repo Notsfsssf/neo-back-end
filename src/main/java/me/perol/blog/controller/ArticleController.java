@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,6 +36,7 @@ public class ArticleController extends BaseController {
 
     @GetMapping
     public List<Article> getArticle(@RequestParam(value = "current", required = false) Long current, @RequestParam(value = "size", required = false) Long size) {
+
         QueryWrapper<Article> queryWrapper = new QueryWrapper<Article>();
         queryWrapper.orderByDesc("id");
         if (current == null || size == null) {

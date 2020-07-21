@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author perol
@@ -28,29 +28,32 @@ public class CommentController extends BaseController {
 
     @Resource
     CommentMapper commentMapper;
+
     @GetMapping("/{id}")
-    public List<Comment> getCommentByArticleId(@PathVariable("id") Long id)  {
+    public List<Comment> getCommentByArticleId(@PathVariable("id") Long id) {
         System.out.println(id);
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("article_id",id);
-        List<Comment> comments= commentMapper.selectList(queryWrapper);
-        for (Comment comment:comments
-             ) {
+        queryWrapper.eq("article_id", id);
+        List<Comment> comments = commentMapper.selectList(queryWrapper);
+        for (Comment comment : comments
+        ) {
             comment.setEmail("");
         }
-        return  comments;
+        return comments;
     }
+
     @GetMapping("admin/{id}")
-    public List<Comment> getAdminCommentByArticleId(@PathVariable("id") Long id)  {
+    public List<Comment> getAdminCommentByArticleId(@PathVariable("id") Long id) {
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id",id);
-        List<Comment> comments= commentMapper.selectList(queryWrapper);
-        return  comments;
+        queryWrapper.eq("id", id);
+        List<Comment> comments = commentMapper.selectList(queryWrapper);
+        return comments;
     }
+
     @PostMapping
-    public void postComment(@RequestBody @Valid CommentForm commentForm){
+    public void postComment(@RequestBody CommentForm commentForm) {
         Comment comment = new Comment();
-        BeanUtils.copyProperties(comment, commentForm);
+        BeanUtils.copyProperties(commentForm,comment);
         comment.setCreateTime(LocalDateTime.now());
         commentMapper.insert(comment);
     }

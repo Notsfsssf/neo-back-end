@@ -12,11 +12,10 @@ import java.time.LocalDateTime;
  */
 @Data
 public class CommentForm {
-    @NotBlank
+    private Long id;
     private String content;
-    @NotBlank
     private String name;
-    @NotBlank
     private String email;
     private Long articleId;
+    private String createTime;
 }
