@@ -1,5 +1,6 @@
 package me.perol.blog.controller;
 
+import me.perol.blog.InO;
 import me.perol.blog.config.ApplicationRunnerImpl;
 import me.perol.blog.mapper.VisitMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
-
 import static me.perol.blog.InO.visitArray;
+
 
 @RestController
 @RequestMapping("/api/visit")
@@ -25,12 +25,12 @@ public class VisitController {
 
     @PostMapping("/website")
     public void visitWebsite() {
-        visitArray[0] += 1;
+        InO.plusWebsite();
     }
 
     @PostMapping("/pixez")
     public void visitPixez() {
-        visitArray[1] += 1;
+        InO.plusPixez();
     }
 
     @GetMapping("/website")
